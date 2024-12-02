@@ -11,16 +11,16 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column
+    @Column(length = 100, nullable = false)
     private String email;
 
-    @Column
+    @Column(length = 15, nullable = false)
     private String telefone;
 
-    @Column
+    @Column(length = 100, nullable = false)
     private String especialidade;
 
     public Integer getId() {

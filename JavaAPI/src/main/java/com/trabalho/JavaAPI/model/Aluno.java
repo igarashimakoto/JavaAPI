@@ -13,16 +13,16 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column
+    @Column(length = 100, nullable = false)
     private String email;
 
-    @Column
+    @Column(length = 20, nullable = false)
     private String matricula;
 
-    @Column
+    @Column(nullable = false)
     private Date data_nascimento;
 
     public Integer getId() {
