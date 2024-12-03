@@ -1,6 +1,9 @@
 package com.trabalho.JavaAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "turmas")
@@ -20,6 +23,10 @@ public class Turma {
     @ManyToOne
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private Curso curso;
+
+    @OneToMany(mappedBy = "turma")
+    @JsonManagedReference
+    private List<Matricula> matriculas;
 
     public Integer getId() {
         return id;
@@ -51,5 +58,13 @@ public class Turma {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }

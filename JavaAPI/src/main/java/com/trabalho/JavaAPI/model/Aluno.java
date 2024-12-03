@@ -1,8 +1,10 @@
 package com.trabalho.JavaAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "alunos")
@@ -24,6 +26,10 @@ public class Aluno {
 
     @Column(nullable = false)
     private Date data_nascimento;
+
+    @OneToMany(mappedBy = "aluno")
+    @JsonManagedReference
+    private List<Matricula> matriculas;
 
     public Integer getId() {
         return id;
@@ -63,5 +69,13 @@ public class Aluno {
 
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }

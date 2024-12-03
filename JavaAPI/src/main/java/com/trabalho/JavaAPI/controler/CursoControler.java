@@ -2,7 +2,10 @@ package com.trabalho.JavaAPI.controler;
 
 import com.trabalho.JavaAPI.dto.CursoRequestDTO;
 import com.trabalho.JavaAPI.model.Curso;
+import com.trabalho.JavaAPI.model.Disciplina;
 import com.trabalho.JavaAPI.repository.CursoRepository;
+import com.trabalho.JavaAPI.repository.DisciplinaRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,9 @@ public class CursoControler {
 
     @Autowired
     private CursoRepository repository;
+
+    @Autowired
+    private DisciplinaRepository disciplinaRepository;
 
     @GetMapping
     public ResponseEntity<List<Curso>> findAll() {
@@ -56,7 +62,19 @@ public class CursoControler {
         return this.repository.save(curso);
     }
 
-@DeleteMapping("/{id}")
+    @PutMapping("/add-disciplina/{id}")
+    public ResponseEntity<Curso> addDisciplina(@PathVariable Integer id, @RequestBody Disciplina disciplina) {
+
+        Curso curso = this.repository.findById(id).
+                orElseThrow(() -> new IllegalArgumentException("curso não encontrado"));
+
+        disciplina.setCurso(curso);
+        this.disciplinaRepository.save(disciplina);
+
+        return ResponseEntity.ok(curso);
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
 
         Curso curso = this.repository.findById(id).
@@ -64,7 +82,7 @@ public class CursoControler {
 
         this.repository.delete(curso);
         return ResponseEntity.noContent().build();
-}
+    }
 
 
 }
