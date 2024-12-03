@@ -1,6 +1,7 @@
 package com.trabalho.JavaAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -24,8 +25,14 @@ public class Curso {
     private Integer carga_horaria;
 
     @OneToMany(mappedBy = "curso")
-    @JsonIgnoreProperties("curso")
+    //@JsonIgnoreProperties("curso")
+    @JsonManagedReference
     private List<Turma> turmas;
+
+    @OneToMany(mappedBy = "curso")
+    @JsonManagedReference
+    //@JsonIgnoreProperties("curso")
+    private List<Disciplina> disciplinas;
 
     public Integer getId() {
         return id;
@@ -65,5 +72,13 @@ public class Curso {
 
     public void setTurmas(List<Turma> turmas) {
         this.turmas = turmas;
+    }
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 }
