@@ -25,13 +25,12 @@ public class Curso {
     private Integer carga_horaria;
 
     @OneToMany(mappedBy = "curso")
-    //@JsonIgnoreProperties("curso")
-    @JsonManagedReference
+    @JsonIgnoreProperties("curso")
+    //@JsonManagedReference
     private List<Turma> turmas;
 
     @OneToMany(mappedBy = "curso")
-    @JsonManagedReference
-    //@JsonIgnoreProperties("curso")
+    @JsonIgnoreProperties("curso")
     private List<Disciplina> disciplinas;
 
     public Integer getId() {

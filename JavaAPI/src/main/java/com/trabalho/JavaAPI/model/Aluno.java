@@ -1,5 +1,6 @@
 package com.trabalho.JavaAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -28,7 +29,8 @@ public class Aluno {
     private Date data_nascimento;
 
     @OneToMany(mappedBy = "aluno")
-    @JsonManagedReference
+    @JsonIgnoreProperties("aluno")
+    //@JsonManagedReference
     private List<Matricula> matriculas;
 
     public Integer getId() {

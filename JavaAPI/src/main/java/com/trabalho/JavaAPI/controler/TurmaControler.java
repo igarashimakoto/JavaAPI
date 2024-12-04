@@ -37,6 +37,26 @@ public class TurmaControler {
         return ResponseEntity.ok(turma);
     }
 
+    @GetMapping("/curso/{cursoId}")
+    public ResponseEntity<List<Turma>> findByCurso(@PathVariable Integer cursoId) {
+        List<Turma> turmas = this.repository.findByCursoId(cursoId);
+        return ResponseEntity.ok(turmas);
+    }
+
+    @GetMapping("/semestre/{semestre}")
+    public ResponseEntity<List<Turma>> findBySemestre(@PathVariable Integer semestre) {
+        List<Turma> turmas = this.repository.findBySemestre(semestre);
+        return ResponseEntity.ok(turmas);
+    }
+
+    @GetMapping("/curso/{cursoId}/semestre/{semestre}")
+    public ResponseEntity<List<Turma>> findByCursoAndSemestre(
+            @PathVariable Integer cursoId,
+            @PathVariable Integer semestre) {
+        List<Turma> turmas = this.repository.findByCursoIdAndSemestre(cursoId, semestre);
+        return ResponseEntity.ok(turmas);
+    }
+
     @PostMapping
     public ResponseEntity<Turma> save(@RequestBody TurmaRequestDTO dto) {
         Turma turma = new Turma();
@@ -70,7 +90,7 @@ public class TurmaControler {
         return this.repository.save(turma);
     }
 
-@DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
 
         Turma turma = this.repository.findById(id).
@@ -78,7 +98,5 @@ public class TurmaControler {
 
         this.repository.delete(turma);
         return ResponseEntity.noContent().build();
-}
-
-
+    }
 }

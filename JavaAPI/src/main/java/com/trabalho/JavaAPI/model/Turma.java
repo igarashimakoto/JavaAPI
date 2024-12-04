@@ -1,5 +1,7 @@
 package com.trabalho.JavaAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,10 +24,12 @@ public class Turma {
 
     @ManyToOne
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
+    //@JsonBackReference
     private Curso curso;
 
     @OneToMany(mappedBy = "turma")
-    @JsonManagedReference
+    @JsonIgnoreProperties("turma")
+    //@JsonManagedReference
     private List<Matricula> matriculas;
 
     public Integer getId() {

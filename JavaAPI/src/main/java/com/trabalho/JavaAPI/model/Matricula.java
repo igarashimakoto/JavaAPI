@@ -1,7 +1,10 @@
 package com.trabalho.JavaAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "matriculas")
@@ -13,16 +16,20 @@ public class Matricula {
     private Integer id;
 
     @ManyToOne
-    @MapsId("alunoId")
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name = "aluno_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("matriculas")
     private Aluno aluno;
 
     @ManyToOne
-    @MapsId("turmaId")
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name = "turma_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("matriculas")
     private Turma turma;
+
+    @OneToMany(mappedBy = "nota")
+    @JsonIgnoreProperties("nota")
+    private List<Nota> notas;
 
     public Integer getId() {
         return id;
@@ -42,5 +49,13 @@ public class Matricula {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "disciplinas")
 
@@ -26,7 +28,13 @@ public class Disciplina {
 
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    @JsonBackReference
     private Professor professor;
+
+    @OneToMany(mappedBy = "nota")
+    @JsonIgnoreProperties("nota")
+    private List<Nota> notas;
+
 
     public Integer getId() {
         return id;
